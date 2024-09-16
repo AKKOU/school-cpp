@@ -11,6 +11,7 @@ void f01();
 void f02();
 void f03();
 void f04();
+void f05();
 
 
 int main() {
@@ -50,6 +51,9 @@ int main() {
 				break;
 			case 4:
 				f04();
+				break;
+			case 5:
+				f05();
 				break;
 		}
 		cout<<"\n";
@@ -213,4 +217,26 @@ void f04(){
     printf("a=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y)%(++z))",(x*=(++y)%(++z)),x,y,z);
     x=3,y=2,z=1;
     printf("b=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y)*(++z))",(x*=(++y)*(++z)),x,y,z);
+}
+
+#define PI 3.14159;
+
+void f05(){
+    enum dir {x,y,z=10};
+    const int DAY = 24;
+    double area = 3 * 3 * PI;
+    enum dir b = x;
+    printf("一天有%d小時\n",DAY);
+    printf("圓面積為:%.51f\n",area);
+    printf("b=%d\ty=%d\tz=%d\n",b,y,z);
+    enum Status {Run = 1,Stop,Pause = 3,Exit};
+    Status StateMachine = Pause;
+    int Command = 0;
+    cin >> Command;
+    if(Command == 1) StateMachine = Stop;
+    if(Command == 2 && StateMachine == Pause)
+        StateMachine = Run;
+    if(Command == 3 || StateMachine == Stop)
+        StateMachine = Exit;
+    cout << StateMachine;
 }
