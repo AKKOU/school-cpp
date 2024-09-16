@@ -10,6 +10,7 @@ using namespace std;
 void f01();
 void f02();
 void f03();
+void f04();
 
 
 int main() {
@@ -46,6 +47,9 @@ int main() {
 				break;
 			case 3:
 				f03();
+				break;
+			case 4:
+				f04();
 				break;
 		}
 		cout<<"\n";
@@ -148,4 +152,65 @@ void f03() {
     x=8,y=0,z=2;
     y=x<0?y:x>0?1:3;
     printf("[3]%-10s%6d%6d%6d\n", "y=x>0?y:z>0?1:3",x,y,z);
+}
+
+void f04(){
+    int k =3;
+    cout << "k=" << k++ << endl;
+    cout << "k=" << k << endl;
+    k = 3;
+    k++;
+    cout << "k=" << k << endl;
+    k=3;
+    
+    cout << "++k=" << ++k << endl;
+    cout << "k++=" << k++ << endl;
+    cout << "k=" << k << endl;
+    float m = 3.2;
+    cout << m++ << endl;
+    cout << ++m << endl;
+    int x =8,y=0,z=2;
+    printf("[0]%-10s%4c%4c%4c\n"," ",'x','y','z');
+    printf("[0]%-10s%4d%4d%4d\n"," ",x,y,z);
+    y=x++;
+    printf("[1]%-10s%4d%4d%4d\n","y=x++",x,y,z);
+    x=8,y=0,z=2;
+    x=x++;
+    printf("[2]%-10s%4d%4d%4d\n","x=x++",x,y,z);
+    printf("--------------------2 undefinded behavior(--------------------\n");
+    x=8,y=0,z=2;
+    x=x+++2;
+    printf("[3]%-10s%4d%4d%4d\n","x=x+++2",x,y,z);
+    x=8,y=0,z=2;
+    y=x+++2;
+    printf("[4]%-10s%4d%4d%4d\n","y=x+++2",x,y,z);
+    x=8,y=0,z=2;
+    y=x+++x;
+    printf("[5]%-10s%4d%4d%4d\n","y=x+++x",x,y,z);
+    x=8,y=0,z=2;
+    x=x+++x;
+    printf("[6]%-10s%4d%4d%4d\n","x=x+++x",x,y,z);
+    x=8,y=0,z=2;
+    y=(x++)+x;
+    printf("[7]%-10s%4d%4d%4d\n","y=(x++)+x",x,y,z);
+    x=8,y=0,z=2;
+    y=x+(++x);
+    printf("[8]%-10s%4d%4d%4d\n","y=x+(++x)",x,y,z);
+    x=8,y=0,z=2;
+    y=x+++z++;
+    printf("[9]%-10s%4d%4d%4d\n","y=x+++z++",x,y,z);
+    x=8,y=0,z=2;
+    y=x--+x;
+    printf("[A]%-10s%4d%4d%4d\n","y=x--+x",x,y,z);
+    printf("\n\n");
+
+    x=3,y=2,z=1;
+    printf("[0]%-10s%4d%4d%4d\n"," ",x,y,z);
+    printf("a=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y))%(++z)",(x*=(++y))%(++z),x,y,z);
+    x=3,y=2,z=1;
+    printf("b=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y))*(++z)",(x*=(++y))*(++z),x,y,z);
+    x=3,y=2,z=1;
+    printf("a=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y)%(++z))",(x*=(++y)%(++z)),x,y,z);
+    x=3,y=2,z=1;
+    printf("b=%s=%d,x=%d,y=%d,z=%d\n","(x*=(++y)*(++z))",(x*=(++y)*(++z)),x,y,z);
 }
