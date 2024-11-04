@@ -14,6 +14,8 @@ void f04();
 void f05();
 void f06();
 void f07();
+void f08();
+void f09();
 
 
 int main() {
@@ -62,6 +64,12 @@ int main() {
                 break;
             case 7:
                 f07();
+                break;
+            case 8:
+                f08();
+                break;
+            case 9:
+                f09();
                 break;
 		}
 		cout<<"\n";
@@ -380,4 +388,95 @@ void f07(){
     cout<<"請輸入資料筆數:";
     cin>>N;
     cout<<"選擇排序法比較次數:"<<N*(N-1)/2<<"次"<<endl;
+}
+
+void f08(){
+    int x=89,y=6,z=4;
+    cout << "[1]x y z變數記憶體位址"<<&x<<"\t\t" << &y << "\t" << &z << endl;
+    cout << "[2]x y z變數位址 取植\t" << *&x << "\t\t" << *&y << "\t\t" << *&z << endl;
+    int* p1;
+    p1 = &x;
+    y = *p1;
+    cout << "[3]p1=" << &*p1 << "\t *p1=" << *p1 << endl;
+    cout << "[4]p1=" << p1 << "\t *p1=" << *p1 << endl;
+    cout << "[5]x=" << x << "\ty=" << y << "\tz=" << z << endl;
+    int *p2;
+    p2 = &z;
+    *p2 = 3;
+    cout << "[4]p2=" << p2 << "\t *p2=" << *p2 << endl;
+    cout << "[5]x=" << x << "\ty=" << y << "\tz=" << z << endl;
+    int * p3,p4;
+    p3 = p1;
+    p4 = x;
+    printf("[6]p3位址=%p, *p3=%d\n",p3,*p3);
+    printf("[7]p4位址=%x,p4=%d\n",&p4,p4);
+    printf("[8]sizeof(p1)=%d Bytes,sizeof(*p1)=%d Bytes\n",sizeof(p1),sizeof(*p1));
+
+    cout << "----------------------------------------------------\n";
+    int a[9] = {10,20,30,40,50,60,70,80,90};
+    int *pa = a;
+    int *pb = &a[3];
+    printf("[1]pa = %p = &a[0] = %p :*pa=%d=a[0]=%d\n",pa,&a[0],*pa,a[0]);
+    printf("[1]pb = %x = &a[3] = %x :*pb=%d=a[3]=%d\n",pb,&a[3],*pb,a[3]);
+    printf("[3]*(pb+2)=%d=a[3+2]=%d, *pb+2=a[3]+2=%d\n",*(pb+2),a[3+2],*pb+2);
+    printf("[4]pb-pa=%d, &a[3]-&a[0]=%d\n",pb-pa,&a[3]-&a[0]);
+    cout << "[5]練習: 請以pb指標的方式計算a[0]的結果\n";
+    cout << "   a[0]=" << "*(pb-3)=" << *(pb-3) << endl;
+    cout << "[6]練習: 請以pb指標的方式計算a[3]+a[7]的結果\n";
+    cout << "   a[3]+a[7]=" << "*pb + *(pb+4)" << *pb + *(pb+4) << endl;
+    cout << "[7]練習:請以pa指標的方式，以迴圈列出a陣列值的結果\n";
+
+    int n = sizeof(a)/sizeof(int);
+    for(int i=0;i<n;i++){
+        printf("a[%d]=%d ",i,*(a+i));
+    }
+    cout << endl;
+    cout << "----------------------------------------------------\n";
+
+    int v;
+    v = ++*pa;
+    printf("[1]v=++*pa=%d,a[0] = %d, a[1] = %d, *pa = %d\n",v,a[0],a[1],*pa);
+    v = *pa++;
+    printf("[2]v=*pa++=%d,a[0] = %d, a[1] = %d, *pa = %d\n",v,a[0],a[1],*pa);
+    v = *++pa;
+    printf("[3]v=*++pa=%d,a[0] = %d, a[1] = %d, *pa = %d\n",v,a[0],a[1],*pa);
+}
+
+void f09(){
+    cout << "----------------------------------------------------\n";
+    int bk[3][4] = {0,1,2,3,11,12,13,14,21,22,23,24};
+    cout << "陣列指標\n";
+    int (*p)[4] = bk;
+    cout << "[1]&bk[0][0]= " << &bk[0][0]<<endl;
+    cout << "[2]*p" <<  *p << endl;
+    cout << "[3]*(p+2)= " << *(p+2) << ",&bk[2][0]= " << &bk[2][0] <<endl;
+    cout << "[4]**(p+1)= " << **(p+1) << endl;
+    cout << "[5]*(*(p+1)+2)= " << *(*(p+1)+2) << endl;
+    cout << "[6]bk[1][2]= " << bk[1][2] << endl;
+    cout << "[7]bk[1][2]= " << bk[1][2] << endl;
+    cout << "[7]練習:請以指標p的方式計算陣列植 3+13+22的結果\n";
+    cout << "   *(*(p+0)+3) + *(*(p+1)+2) + *(*(p+2)+1)= " << *(*(p+0)+3) + *(*(p+1)+2) + *(*(p+2)+1) << endl;
+    cout << "----------------------------------------------------\n";
+    cout << "指標陣列\n";
+    int xx=1,yy[4] = {2,4,6,5},zz[4] = {3,7,9,5};
+    int *pc[3] = {&xx,yy,&zz[1]};
+    cout << "[1]xx=" << *pc[0] << endl;
+    cout << "[2]yy[1]=" << yy[1] << ",*(pc[1]+1)=" << *(pc[1]+1) << endl;
+    cout << "[3]yy[2]+1=" << yy[2]+1 << ",*(pc[1]+2)+1=" << *(pc[1]+2)+1 << endl;
+    cout << "[4]zz[2]*2=" << zz[2]*2 << ",*(pc[2]+1)*2=" << *(pc[2]+1)*2 << endl;
+    cout << "[5]練習:請以指標pc的方式計算陣列植 xx+yy[1]+zz[2]的結果\n";
+    cout << "   *pc[0] + *(pc[1]+1) + *(pc[2]+1)*2=" << *pc[0] + *(pc[1]+1) + *(pc[2]+1) << endl;
+    cout << "----------------------------------------------------\n";
+    int aa[] = {1,2,3,4,5};
+    int *ptr = aa;
+    cout << "[6]練習:請以指標ptr，顯示陣列a所有植\n";
+    for(int i=0;i<5;i++){
+        printf("aa[%d]=%3d ",i,ptr[i]);
+    }
+    printf("\n");
+    *(ptr++) += 100;
+    *(++ptr) += 100;
+    for(int i=0;i<5;i++)
+        printf("aa[%d]=%3d ",i,aa[i]);
+    cout << endl;
 }
