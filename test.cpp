@@ -20,6 +20,7 @@ void f10();
 void f11();
 void f12();
 void f13();
+void f14();
 
 int main()
 {
@@ -92,6 +93,9 @@ int main()
             break;
         case 13:
             f13();
+            break;
+        case 14:
+            f14();
             break;
         }
         cout << "\n";
@@ -815,4 +819,44 @@ void rnd(int *x, int val)
     {
         x[i] = rand() % 95 + 5;
     }
+}
+
+//F14
+struct student {
+    string name;
+    int id;
+    float height;
+    float weight;
+    float bmi;
+    void calbmi() {
+        float h = height/100;
+        bmi = weight/h/h;
+    }
+};
+
+void f14(){
+    cout << "[1]結構\n";
+    float h;
+    student stu[3] = {
+        {"John",1,170,80.5},
+        {"Mary",2,158.5,46},
+        {"Shi",3,170,80}
+    };
+
+    for(int i=0; i<3; i++){
+        stu[i].calbmi();
+        cout << stu[i].name << setw(10) << stu[i].id << setw(10);
+        cout << stu[i].height << setw(10) << stu[i].weight << setw(10);
+        cout << stu[i].bmi << endl;
+    }
+    cout << "[2]結構指標\n";
+    student *p1,*p2;
+    p1=stu;
+
+    cout << "[3]" << p1->name << "\t" << p1->id << endl;
+    cout << "[4]請用p1 輸出Shi 的name id" << endl;
+    cout << (p1+2) -> name << "\t" << (p1+2) -> id << "\t" << (p1+2) -> bmi << endl;
+    p2 = &stu[1];
+    cout << "[5]請用p2 輸出Shi的Nameid" << endl;
+    cout << (p2+1) -> name << "\t" << (p2+1) -> id << endl;
 }
