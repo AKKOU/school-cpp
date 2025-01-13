@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ctime>
 #include <conio.h>
+#include <math.h>
 #define mypi 3.14
 using namespace std;
 void f01();
@@ -21,6 +22,7 @@ void f11();
 void f12();
 void f13();
 void f14();
+void f15();
 
 int main()
 {
@@ -37,7 +39,9 @@ int main()
         "[10]指標",
         "[11]指標2",
         "[12]多載函式",
-        "[13]多載函式2"};
+        "[13]多載函式2",
+        "[14]物件導向Struct",
+        "[15]物件導向Class"};
     int i, num;
     int selMenu = 99;
     while (selMenu != 0)
@@ -96,6 +100,9 @@ int main()
             break;
         case 14:
             f14();
+            break;
+        case 15:
+            f15();
             break;
         }
         cout << "\n";
@@ -859,4 +866,124 @@ void f14(){
     p2 = &stu[1];
     cout << "[5]請用p2 輸出Shi的Nameid" << endl;
     cout << (p2+1) -> name << "\t" << (p2+1) -> id << endl;
+}
+
+class stuClass {
+    private:
+        string name;
+    protected:
+        const char *sub = "info";
+    public:
+        static int year;
+        int id;
+        float height=0,weight=0,bmi;
+
+        //建構子可以Overload (多載、重載)，定是public，沒有void
+        stuClass() {
+            cout << "建構子a\n";
+        }
+
+        stuClass(string _name, int _id){
+            name = _name;
+            id = _id;
+            cout << "建構子b\n";
+        }
+
+        //一個類別只有一個解構子，沒有回傳植
+        ~stuClass() {
+            cout << "解構子bye "<< id << "\n";
+        }
+
+        //private的屬性與方法，透過getter & setter 來取得與設植
+        //參數名字跟成員變數名字衝突時，使用this關鍵字去強調成員變數
+        void setname(string name) {
+            this -> name = name;
+        }
+
+        //方法(函式)直接寫在類別內
+        void setdata(const char *_name, int _id){
+            name = _name;
+            id = _id;
+        }
+
+        void calbmi() {
+            float h = height / 100;
+            bmi = weight / pow(h,2);
+        }
+
+        //全域函數，可存取該類私有資料，不可大量使用
+        friend string lookName(stuClass &obj){
+            return obj.name;
+        }
+
+        //運算子多載
+        float operator + (stuClass &stuH){
+            return (height + stuH.height);
+        }
+
+        //定義寫在類別外
+        void showdata();
+} gg("Kobe",24);
+
+//::範圍解析運算子
+//靜態成員宣告初始植
+int stuClass::year=2025;
+void stuClass::showdata(){
+    cout << sub << ",";
+    cout << name << "," << id << "," << height << "," << weight << "," << ",bmi=" << bmi << endl;
+}
+
+void f15(){
+    cout << "------------------------------" << endl;
+    cout << "----- 資訊三乙 23 陳柏魁 ------" << endl;
+    cout << "------------------------------" << endl;
+
+    cout << stuClass::year << endl;
+    cout << "[1]物件宣告 " << endl;
+    stuClass stu1;
+    stu1.height = 170;
+    stu1.weight = 60;
+    stu1.setdata("John",20);
+    stu1.calbmi();
+    stu1.showdata();
+
+    cout << "[2]Friend " << endl;
+    cout << "NAME=" << lookName(stu1) << endl;
+
+    cout << "[3]物件宣告 " << endl;
+    stuClass stu2("Curry",21);
+    stu2.height = 180;
+    stu2.weight = 70;
+    stu2.calbmi();
+    stu2.showdata();
+    cout << "stu1 和 stu2 平均身高:" << (stu1+stu2)/2 << endl;
+
+    cout << "[4]類別指標宣告" << endl;
+    stuClass* p1=new stuClass("Lisa",22);
+    p1-> height = 190;
+    p1-> weight = 90;
+    p1-> calbmi();
+    p1-> showdata();
+
+    //delete p1
+    cout << "[5]類別指標宣告 " << endl;
+    stuClass *p2;
+    p2 = &stu1;
+    p2-> setdata("Bat",23);
+    p2-> calbmi();
+    p2-> showdata();
+
+    cout << "[6]物件宣告3" << endl;
+    gg.height = 150;
+    gg.weight = 50;
+    gg.calbmi();
+    gg.showdata();
+
+    cout << "[7]物件宣告練習"<<endl;
+    cout << "請使用指標p3輸出，blue,25,196,100植及bmi\n";
+    stuClass* p3 = new stuClass("blue",25);
+    p3-> height = 196;
+    p3-> weight = 100;
+    p3-> calbmi();
+    p3-> showdata();
 }
